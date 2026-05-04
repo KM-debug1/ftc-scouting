@@ -1,0 +1,58 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [autoFocus]="false">
+    <mat-toolbar>Navigation</mat-toolbar>
+    <mat-nav-list class="sidenav-list" role="navigation">
+      <a mat-list-item routerLink="/" routerLinkActive="drawer-list-item-active"
+        [routerLinkActiveOptions]="{exact: true}" (click)="drawer.close()">
+        <mat-icon matListItemIcon>home</mat-icon>
+        Home
+      </a>
+
+      @if (canAccessPath('/users')) {
+        <a mat-list-item routerLink="/users" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
+          <mat-icon matListItemIcon>supervisor_account</mat-icon>
+          Users
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" class="sidenav-button">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="app-title">{{title}}</span>
+      <span class="toolbar-spacer"></span>
+
+      @if (authService.loggedIn) {
+        <button mat-button [matMenuTriggerFor]="accountMenu" class="account-button" aria-label="Account menu">
+          <mat-icon>account_circle</mat-icon>
+          {{ authService.displayName }}
+          <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #accountMenu="matMenu">
+          @if (canAccessPath('/users')) {
+            <a mat-menu-item routerLink="/users">
+              <mat-icon>supervisor_account</mat-icon>
+              <span>Users</span>
+            </a>
+          }
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      } @else {
+        <a mat-button routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Login
+        </a>
+      }
+    </mat-toolbar>
+
+    <div class="main-content mat-typography">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
