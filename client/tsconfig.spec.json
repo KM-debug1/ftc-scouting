@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine","node"
+    ]
+  },
+  "files": [
+    "src/test.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/app/app-routing.module.spec.ts",
+    "src/app/app.component.spec.ts",
+    "src/app/auth/auth-service.spec.ts",
+    "src/app/auth/auth.guard.spec.ts",
+    "src/app/auth/role.guard.spec.ts",
+    "src/app/auth/login/login.component.spec.ts",
+    "src/app/shared/**/*.spec.ts",
+    "src/app/home/**/*.spec.ts",
+    "src/app/dialog/**/*.spec.ts",
+    "src/app/**/*.d.ts"
+  ]
+}
